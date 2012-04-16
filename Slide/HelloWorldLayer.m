@@ -1,16 +1,9 @@
-//
-//  HelloWorldLayer.m
-//  Slide
-//
-//  Created by Ross Andrews on 4/6/12.
-//  Copyright None 2012. All rights reserved.
-//
-
-
-// Import the interfaces
 #import "HelloWorldLayer.h"
 
-// HelloWorldLayer implementation
+CCSprite *bot;
+float vel = 128.0;
+UISwipeGestureRecognizer *swipe_right;
+
 @implementation HelloWorldLayer
 
 +(CCScene *) scene
@@ -31,33 +24,60 @@
 // on "init" you need to initialize your instance
 -(id) init
 {
-	// always call "super" init
-	// Apple recommends to re-assign "self" with the "super" return value
 	if( (self=[super init])) {
-		
-		// create and initialize a Label
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Hello World" fontName:@"Marker Felt" fontSize:64];
+		bot = [CCSprite spriteWithFile:@"slide.png" rect:CGRectMake(0, 0, 31.5, 45.5)];
+        bot.position = CGPointMake(100, 50);
+        [self addChild:bot];
+                
+        swipe_right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
+        [swipe_right setDirection:UISwipeGestureRecognizerDirectionRight];
+        
+        [self schedule:@selector(moveSprite:)];
 
-		// ask director the the window size
-		CGSize size = [[CCDirector sharedDirector] winSize];
-	
-		// position the label on the center of the screen
-		label.position =  ccp( size.width /2 , size.height/2 );
-		
-		// add the label as a child to this Layer
-		[self addChild: label];
+        //[self setIsTouchEnabled: YES];
 	}
 	return self;
 }
 
-// on "dealloc" you need to release all your retained objects
+-(void) onEnter
+{
+    [super onEnter];
+    [[[CCDirector sharedDirector] openGLView] addGestureRecognizer:swipe_right];
+}
+
+-(void) onExit
+{
+    [super onExit];
+[[[CCDirector sharedDirector] openGLView] removeGestureRecognizer:swipe_right];
+}
+
+-(void) swipe: (id) sender
+{
+    NSLog(@"Swipe");
+}
+
+-(void) draw
+{
+    // closed purble poly
+	glColor4ub(255, 0, 255, 255);
+	glLineWidth(2);
+    
+	CGPoint vertices2[] = { ccp(30,200), ccp(130,200), ccp(130,100), ccp(30, 100) };
+	ccDrawPolyWithMode( vertices2, 4, YES, GL_TRIANGLE_FAN);
+}
+
+-(void) moveSprite: (ccTime) dt
+{
+    CGPoint pos = [bot position];
+    if ((pos.x <= 50 && vel < 0) ||
+        (pos.x >= 150 && vel > 0)) vel *= -1;
+    [bot setPosition:CGPointMake(pos.x + dt * vel, pos.y)];
+}
+
 - (void) dealloc
 {
-	// in case you have something to dealloc, do it in this method
-	// in this particular example nothing needs to be released.
-	// cocos2d will automatically release all the children (Label)
-	
-	// don't forget to call "super dealloc"
+    [swipe_right release];
+    swipe_right = nil;
 	[super dealloc];
 }
 @end

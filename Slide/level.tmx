@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="walls" tilewidth="32" tileheight="32">
+  <image source="walls.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Floor" width="10" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxTZGBgUBzFo5jKGADTFhNX
+  </data>
+ </layer>
+ <layer name="Shadows" width="10" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAOrCkU00DC1DCPGGADxJZQjE+MWIDLXnRxUtzHgOQeSyRxarmPWuGH7jZS3QcAVqMIAA==
+  </data>
+ </layer>
+ <layer name="Shadows 2" width="10" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYKA+UKWBmaNgaAEATOwAJg==
+  </data>
+ </layer>
+ <layer name="Walls" width="10" height="15">
+  <data encoding="base64" compression="zlib">
+   eJyTZmBg4ELDggwQwATlSwIxNwMmQBfjhmJWNIxLHTrgJFIdNndgU8eMRZ00A8KfLFBxYSAWQRLH5V90N1LqPnQ3wtwHcxcs/JHdhs991A4/RizqhBkw0ws6FgJiAMb9Ayo=
+  </data>
+ </layer>
+ <layer name="Doors" width="10" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzjYSAMBIlQQ0/AT0Wz+KhoFjKg1I20chcIUDP8cAEAjrQAZw==
+  </data>
+ </layer>
+</map>

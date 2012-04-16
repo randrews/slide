@@ -71,6 +71,7 @@ void ccDrawLine( CGPoint origin, CGPoint destination );
  The polygon can be closed or open
  */
 void ccDrawPoly( const CGPoint *vertices, NSUInteger numOfVertices, BOOL closePolygon );
+void ccDrawPolyWithMode( const CGPoint *vertices, NSUInteger numOfVertices, BOOL closePolygon, int gl_mode );
 
 /** draws a circle given the center, radius and number of segments measured in points */
 void ccDrawCircle( CGPoint center, float radius, float angle, NSUInteger segments, BOOL drawLineToCenter);

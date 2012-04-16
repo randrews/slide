@@ -120,8 +120,16 @@ void ccDrawLine( CGPoint origin, CGPoint destination )
 	glEnable(GL_TEXTURE_2D);		
 }
 
-
 void ccDrawPoly( const CGPoint *poli, NSUInteger numberOfPoints, BOOL closePolygon )
+{
+    if (closePolygon) {
+        ccDrawPolyWithMode(poli, numberOfPoints, closePolygon, GL_LINE_LOOP);
+    } else {
+        ccDrawPolyWithMode(poli, numberOfPoints, closePolygon, GL_LINE_STRIP);
+    }
+}
+
+void ccDrawPolyWithMode( const CGPoint *poli, NSUInteger numberOfPoints, BOOL closePolygon, int gl_mode )
 {
 	ccVertex2F newPoint[numberOfPoints];
 
@@ -158,10 +166,7 @@ void ccDrawPoly( const CGPoint *poli, NSUInteger numberOfPoints, BOOL closePolyg
 
 	}
 		
-	if( closePolygon )
-		glDrawArrays(GL_LINE_LOOP, 0, (GLsizei) numberOfPoints);
-	else
-		glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) numberOfPoints);
+    glDrawArrays(gl_mode, 0, (GLsizei) numberOfPoints);
 	
 	// restore default state
 	glEnableClientState(GL_COLOR_ARRAY);
